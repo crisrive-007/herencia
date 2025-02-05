@@ -32,4 +32,8 @@ public abstract class Empleado {
     public abstract double calcularSalario();
     
     public abstract double calcularBonificacion();
+    
+    public String toString() {
+        return "Id: " + id + "\nNombre: " + nombre + "\nSalario: " + calcularSalario() + "\nBonificacion: " + calcularBonificacion();
+    }
 }

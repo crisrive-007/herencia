@@ -24,7 +24,7 @@ public class Menu {
         
         int id;
         String nombre;
-        String tipo_de_empleado;
+        int tipo_de_empleado;
         int opcion;
         int opcion_empleado;
         
@@ -40,25 +40,65 @@ public class Menu {
 
             switch (opcion) {
                 case 1:
-                    do {
-                        System.out.print("Seleccione una opción: ");
-                        System.out.println("1. Agregar empleados");
-                        System.out.println("2. Mostrar empleados");
-                        System.out.println("3. Asignar horas de trabajo");
-                        System.out.println("4. Pagar empleados");
-                        System.out.println("5. Salir");
-                        opcion_empleado = entrada.nextInt();
-                        entrada.nextLine();
-                    } while (opcion_empleado != 5 || opcion_empleado < 1);
+                    System.out.print("Nombre: ");
+                    nombre = entrada.nextLine();
+                    System.out.print("ID: ");
+                    id = entrada.nextInt();
+                    System.out.println("Tipo de empleado (1. Por hora, 2. Por ventas, 3. Temporal): ");
+                    tipo_de_empleado = entrada.nextInt();
+
+                    switch (tipo_de_empleado) {
+                        case 1:
+                            System.out.print("Tarifa por hora: ");
+                            double tarifa = entrada.nextDouble();
+                            System.out.print("Horas trabajadas: ");
+                            int horas = entrada.nextInt();
+                            empleados.add(new EmpleadoPorHora(id, nombre, tarifa, horas));
+                            break;
+                        case 2:
+                            System.out.print("Ventas realizadas: ");
+                            int ventas = entrada.nextInt();
+                            System.out.print("Porcentaje de comisión: ");
+                            double comision = entrada.nextDouble();
+                            empleados.add(new EmpleadoPorVentas(id, nombre, ventas, comision));
+                            break;
+                        case 3:
+                            System.out.print("Salario fijo: ");
+                            double salario = entrada.nextDouble();
+                            empleados.add(new EmpleadoTemporal(id, nombre, salario));
+                            break;
+                        default:
+                            System.out.println("Tipo de empleado inválido.");
+                    }
                     break;
                 case 2:
-                    mostrarEmpleados();
+                    for(Empleado empleado : empleados) {
+                        empleado.toString();
+                    }
                     break;
                 case 3:
-                    asignarHorasTrabajo();
+                    System.out.print("ID del empleado: ");
+                    id = entrada.nextInt();
+                    System.out.print("Horas adicionales: ");
+                    int horas = entrada.nextInt();
+           
+
+                    for (int i = 0; i < empleados.size(); i++) {
+                        if (empleados.get(i) instanceof EmpleadoPorHora) {
+                            if (empleados.get(i).id ==id) {
+                                EmpleadoPorHora temp = (EmpleadoPorHora) empleados.get(i) ;
+                                temp.agregarHoras(horas);
+                            }
+                            System.out.println("Agregando horas");
+                        }
+                    }
+                    System.out.println("Empleado no encontrado o no es del tipo adecuado.");
                     break;
                 case 4:
-                    pagarEmpleados();
+                    for (Empleado e : empleados) {
+                        double totalPago = e.calcularSalario() + e.calcularBonificacion();
+                        System.out.println("ID: " + e.id + " | Nombre: " + e.nombre + " | Pago Total: " + totalPago);
+                    }
                     break;
                 case 5:
                     System.exit(0);
@@ -68,17 +108,4 @@ public class Menu {
             }
         } while (opcion != 5 || opcion < 1);
     }
-
-    private static void mostrarEmpleados() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private static void asignarHorasTrabajo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private static void pagarEmpleados() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }
