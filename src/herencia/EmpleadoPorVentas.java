@@ -8,6 +8,24 @@ package herencia;
  *
  * @author river
  */
-public class EmpleadoPorVentas {
+public class EmpleadoPorVentas extends Empleado{
     
+    private int ventas;
+    private double comision;
+    
+    public EmpleadoPorVentas(int id, String nombre, int ventas, double comision) {
+        super(id, nombre);
+        this.ventas = ventas;
+        this.comision = comision;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return ventas * (comision/100);
+    }
+    
+    @Override
+    public double calcularBonificacion() {
+        return calcularSalario() * 0.10;
+    }
 }

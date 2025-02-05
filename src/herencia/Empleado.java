@@ -8,6 +8,28 @@ package herencia;
  *
  * @author river
  */
-public class Empleado {
+public abstract class Empleado {
     
+    public int id;
+    public String nombre;
+    public int salario;
+    
+    public Empleado(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        this.salario = 0;
+        
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public abstract double calcularSalario();
+    
+    public abstract double calcularBonificacion();
 }
